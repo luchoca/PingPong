@@ -10,11 +10,15 @@
     this.game_over = false;
     this.bars = []; // bars
     this.ball = null; // ball
+    this.playing = false;
   };
   self.Board.prototype = {
     get elements() {
       //
-      var elements = this.bars; // retorna las paletas y las pelotas que hay adentro del tablero.
+      var elements = this.bars.map(function (bars) {
+        // pasa el arreglo como copia
+        return bars;
+      }); // retorna las paletas y la pelota que hay adentro del tablero.
       elements.push(this.ball);
       return elements;
     },
@@ -29,9 +33,16 @@
     this.speed_x = 0;
     this.speed_y = 0;
     this.board = board;
+    this.direction = 1;
 
     board.ball = this;
     this.kind = "circle";
+  };
+  self.Ball.prototype = {
+    move: function () {
+      this.x += this.speed_x * this.direction;
+      this.y += this.speed_y;
+    },
   };
 })();
 
@@ -76,7 +87,7 @@
   self.BoardView.prototype = {
     //BORRAR
     cleaen: function () {
-      this.contexto.clearRect(0, 0, this.board.width, this.board.height); //dibuja un cuadrado transparente desde la posicion x0 y0 y el temanio del board
+      this.ctx.clearRect(0, 0, this.board.width, this.board.height); //dibuja un cuadrado transparente desde la posicion x0 y0 y el temanio del board
     },
 
     //DIBUJAR
@@ -90,8 +101,11 @@
 
     //JUGAR
     play: function () {
-      this.draw();
-      this.cleaen();
+      if (this.board.playing) {
+        this.draw();
+        this.cleaen();
+        this.board.ball.move();
+      }
     },
   };
 
@@ -119,26 +133,32 @@ var boardView = new BoardView(canvas, board);
 var ball = new Ball(350, 100, 10, board);
 
 document.addEventListener("keydown", function (ev) {
-  ev.preventDefault();
-
   //cada vez que el keydown suceda se va a ejectuar la funcion
   // console.log(ev.keyCode); //ev --> trae informacion del evento
 
   if (ev.keyCode == 38) {
+    ev.preventDefault();
+
     bars.up();
   } else if (ev.keyCode == 40) {
+    ev.preventDefault();
     bars.down();
   } else if (ev.keyCode == 87) {
+    ev.preventDefault();
     //W
-
     bars2.up();
   } else if (ev.keyCode == 83) {
+    ev.preventDefault();
     //S
-
     bars2.down();
+  } else if (ev.keyCode == 32) {
+    ev.preventDefault();
+    //BARRA ESPACIADORA
+    board.playing = !board.playing;
   }
 });
 
+boardView.draw();
 self.requestAnimationFrame(controller); //ANIMACION
 // self.addEventListener("load", main);
 
