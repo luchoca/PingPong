@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Ping Pong</title>
     <meta charset="utf-8" />
     <style>
       canvas {
@@ -10,8 +11,31 @@
     </style>
   </head>
   <body>
-    <h1>Ping Pong con Java Script</h1>
+    <h1>Ping-Pong</h1>
+
+    <div class="contenedor">
+      <div class="marcador">
+        <div class="contenedorj1">
+          <h3 class="JUGADOR1">JUGADOR 1</h3>
+            <h2>Puntos :</h2>
+            <h2 id="jugador1"></h2>
+          </div>
+        </div>
+        <div class="marcador">
+          <div class="contenedorj2">
+            <h3 class="JUGADOR2">JUGADOR 2</h3>
+            
+              <h2>Puntos :</h2>
+              <h2 id="jugador2"></h2>
+            </div>
+        </div>
+        
+        </div>
+      </div>
+    </div>
     <canvas id="canvas"></canvas>
-    <script src="main.js"></script>
+
+    <script src="./JS/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>
 </html>

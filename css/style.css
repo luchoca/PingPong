@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  margin: auto;
+  text-align: center;
+}
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 40px;
+  text-align: center;
+}
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+.marcador {
+  margin-left: 400px;
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+/* .contenedorj1,
+.contenedorj2 {
+  margin: auto;
+} */
+
+#canvas {
+  background-color: green;
+}
