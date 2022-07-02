@@ -1,6 +1,6 @@
 //Tres objetos
 //funcion anonima q se ejecuta asi misma para no contaminar el scoope general del proyecto.
-
+//BOARD
 (function () {
   self.Board = function (width, height) {
     //self vale algo depende del contexto en el que se encuentre.
@@ -37,9 +37,12 @@
       ball.direction = 2;
       ball.speed_x = -ball.speed_x;
     },
+    detenerJuego: function () {
+      !this.boar.playing;
+    },
   };
 })();
-
+//BALL
 (function () {
   self.Ball = function (x, y, radius, board) {
     this.x = x;
@@ -94,6 +97,7 @@
             timer: 3000,
             button: false,
           });
+
           resetPuntos();
 
           // puntuacion.innerHTML = "";
@@ -123,7 +127,7 @@
           //pard IZQ
           //reset puntos
           resetPuntos();
-          // puntuacion.innerHTML = "";
+          detenerJuego();
         }
       }
     },
@@ -154,7 +158,7 @@
     },
   };
 })();
-
+//BARS
 (function () {
   self.Bars = function (x, y, width, height, board) {
     this.x = x; // coordenada
@@ -164,16 +168,16 @@
     this.board = board; //elemento donde se va a dibujar
     this.board.bars.push(this);
     this.kind = "rectangle";
-    this.speed = 12; //velocidad que se mueven las paletas
+    this.speed = 5; //velocidad que se mueven las paletas
   };
 
   self.Bars.prototype = {
     // funciones para mover
     down: function () {
-      this.y += this.speed;
+      if (this.y + this.height < this.board.height) this.y += this.speed;
     },
     up: function () {
-      this.y -= this.speed;
+      if (this.y > 0) this.y -= this.speed;
     },
     toString: function () {
       //imprimer en q coordenadas se encuentra---> tostring pasa de obejot a string
@@ -184,7 +188,7 @@
 //helpper method , ayuda a los objeto auqnue no pertenzcan a el
 
 //clase que va a dibujar el tablero
-
+//BOARD-VIEW
 (function () {
   self.BoardView = function (canvas, board) {
     this.canvas = canvas;
@@ -195,7 +199,8 @@
   };
 
   self.BoardView.prototype = {
-    //BORRAR
+    //limpiar bars para que no se vea mientras se mueve
+
     clean: function () {
       this.ctx.clearRect(0, 0, this.board.width, this.board.height); //dibuja un cuadrado transparente desde la posicion x0 y0 y el temanio del board
     },
@@ -281,7 +286,7 @@ var bars2 = new Bars(870, 150, 20, 100, board);
 var canvas = document.getElementById("canvas");
 var boardView = new BoardView(canvas, board);
 var ball = new Ball(350, 100, 10, board);
-
+//POR CADA LETRA APRETADA HACE ALGO
 document.addEventListener("keydown", function (e) {
   console.log(e.keyCode);
   //cada vez que el keyCodedown suceda se va a ejectuar la funcion
@@ -317,7 +322,7 @@ var jugador2 = document.getElementById("jugador2");
 boardView.draw(); //Muestro el board
 window.requestAnimationFrame(controller); //ANIMACION
 // self.addEventListener("load", main);
-
+//CONTROLLER
 function controller() {
   window.requestAnimationFrame(controller); //ANIMACION , ACA TAMBIEN PARA QUE SE SIGA ACTUALIZNADO CTE.
   boardView.play();

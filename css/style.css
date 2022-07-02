@@ -4,13 +4,16 @@
 }
 
 body {
-  background-color: rgb(255, 255, 255);
+  background-image: url(https://phantom-marca.unidadeditorial.es/a4b9f5dcd9b18088b05ca070324426d1/assets/multimedia/imagenes/2021/07/11/16260326762823.jpg);
+  background-size: cover;
+  /* background-color: rgb(255, 255, 255); */
   margin: auto;
   text-align: center;
 }
 h1 {
+  color: greenyellow;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 40px;
+  font-size: 60px;
   text-align: center;
 }
 .contenedor {
@@ -34,4 +37,14 @@ h1 {
 
 #canvas {
   background-color: green;
+}
+
+.JUGADOR1,
+.JUGADOR2 {
+  font-size: 30px;
+  color: rgb(255, 187, 0);
+}
+
+.puntos {
+  color: chocolate;
 }
